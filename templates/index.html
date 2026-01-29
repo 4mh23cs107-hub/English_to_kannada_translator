@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English to Kannada Translator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🌍 English to Kannada Translator</h1>
+                <p class="subtitle">Translate text and speech instantly</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Status Message -->
+            <div id="statusMessage" class="status-message" style="display: none;"></div>
+
+            <!-- Translator Section -->
+            <div class="translator-section">
+                <!-- English Section -->
+                <div class="language-panel english-panel">
+                    <div class="panel-header">
+                        <h2>English (Source)</h2>
+                        <span class="language-code">EN</span>
+                    </div>
+                    <textarea 
+                        id="englishText" 
+                        class="text-area" 
+                        placeholder="Enter English text here..."
+                        rows="8"
+                    ></textarea>
+                    <div class="button-group">
+                        <button id="speakEnglish" class="btn btn-secondary" title="Speak English text">
+                            <span class="icon">🎤</span> Speak
+                        </button>
+                        <button id="clearEnglish" class="btn btn-light" title="Clear English text">
+                            <span class="icon">🗑️</span> Clear
+                        </button>
+                        <button id="copyEnglish" class="btn btn-light" title="Copy English text">
+                            <span class="icon">📋</span> Copy
+                        </button>
+                    </div>
+                    <div class="char-count" id="englishCount">0 characters</div>
+                </div>
+
+                <!-- Translation Button -->
+                <div class="translation-controls">
+                    <button id="translateBtn" class="btn btn-primary btn-translate">
+                        <span class="icon">⬇️</span>
+                        <span class="text">TRANSLATE</span>
+                        <span class="icon">⬇️</span>
+                    </button>
+                    <div class="translation-loader" id="translationLoader" style="display: none;">
+                        <div class="spinner"></div>
+                        <span>Translating...</span>
+                    </div>
+                </div>
+
+                <!-- Kannada Section -->
+                <div class="language-panel kannada-panel">
+                    <div class="panel-header">
+                        <h2>Kannada (Translation)</h2>
+                        <span class="language-code">KN</span>
+                    </div>
+                    <textarea 
+                        id="kannadaText" 
+                        class="text-area" 
+                        placeholder="Kannada translation will appear here..."
+                        rows="8"
+                        readonly
+                    ></textarea>
+                    <div class="button-group">
+                        <button id="speakKannada" class="btn btn-secondary" title="Speak Kannada text">
+                            <span class="icon">🎤</span> Speak
+                        </button>
+                        <button id="clearKannada" class="btn btn-light" title="Clear Kannada text">
+                            <span class="icon">🗑️</span> Clear
+                        </button>
+                        <button id="copyKannada" class="btn btn-light" title="Copy Kannada text">
+                            <span class="icon">📋</span> Copy
+                        </button>
+                    </div>
+                    <div class="char-count" id="kannadaCount">0 characters</div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <section class="features-section">
+                <h3>Features</h3>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">✅</span>
+                        <h4>Instant Translation</h4>
+                        <p>Translate English to Kannada in real-time</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🎤</span>
+                        <h4>Text-to-Speech</h4>
+                        <p>Hear translations spoken aloud</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">📋</span>
+                        <h4>Easy Copy</h4>
+                        <p>Copy translations to clipboard instantly</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">⚡</span>
+                        <h4>Fast & Reliable</h4>
+                        <p>Powered by advanced translation APIs</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History Section -->
+            <section class="history-section">
+                <h3>Recent Translations</h3>
+                <div id="translationHistory" class="history-list">
+                    <p class="empty-message">No translations yet. Start typing to see history!</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2026 English to Kannada Translator. Built with ❤️ using Python & Flask</p>
+                <div class="footer-links">
+                    <a href="#" title="About">About</a>
+                    <a href="#" title="Privacy">Privacy</a>
+                    <a href="#" title="Contact">Contact</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
