@@ -46,6 +46,49 @@ body {
 }
 
 /* ========================================
+   App Navigation
+   ======================================== */
+
+.app-navbar {
+    background: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+}
+
+.nav-left, .nav-right {
+    flex: 1;
+}
+
+.nav-center {
+    flex: 2;
+    text-align: center;
+}
+
+.nav-back {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-back:hover {
+    color: var(--primary-dark);
+}
+
+.app-title {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--text-dark);
+}
+
+/* ========================================
    Header
    ======================================== */
 

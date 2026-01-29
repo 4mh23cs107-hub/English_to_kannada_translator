@@ -13,18 +13,35 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 from translator import EnglishKannadaTranslator
 from tts_engine import TTSEngine
-from speech_recognizer import SpeechRecognizer
+
+try:
+    from speech_recognizer import SpeechRecognizer
+    SPEECH_RECOGNIZER_AVAILABLE = True
+except Exception as e:
+    print(f"Warning: Speech recognizer not available: {e}")
+    SpeechRecognizer = None
+    SPEECH_RECOGNIZER_AVAILABLE = False
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
 # Initialize components
-translator = EnglishKannadaTranslator()
-tts = TTSEngine()
+try:
+    translator = EnglishKannadaTranslator()
+except Exception as e:
+    print(f"Warning: Translator initialization failed: {e}")
+    translator = None
 
-# Configure TTS to not use GUI
-tts.engine.setProperty('rate', 150)
-tts.engine.setProperty('volume', 0.9)
+try:
+    tts = TTSEngine()
+except Exception as e:
+    print(f"Warning: TTS Engine initialization failed: {e}")
+    tts = None
+
+# Configure TTS to not use GUI (if available)
+if tts and tts.engine:
+    tts.engine.setProperty('rate', 150)
+    tts.engine.setProperty('volume', 0.9)
 
 
 @app.route('/')
@@ -33,9 +50,9 @@ def landing():
     return render_template('landing.html')
 
 
-@app.route('/app')
+@app.route('/translator')
 def index():
-    """Render the translator app page"""
+    """Render the translator page"""
     return render_template('index.html')
 
 
@@ -51,6 +68,9 @@ def api_translate():
         
         if not english_text:
             return jsonify({'error': 'No text provided'}), 400
+        
+        if not translator:
+            return jsonify({'error': 'Translator not initialized'}), 500
         
         # Translate the text
         kannada_text = translator.translate(english_text)
@@ -81,6 +101,9 @@ def api_translate_batch():
         
         if not texts or not isinstance(texts, list):
             return jsonify({'error': 'No texts provided or invalid format'}), 400
+        
+        if not translator:
+            return jsonify({'error': 'Translator not initialized'}), 500
         
         # Translate all texts
         results = translator.translate_batch(texts)
@@ -114,6 +137,14 @@ def api_speak():
         
         if language not in ['english', 'kannada']:
             return jsonify({'error': 'Language must be "english" or "kannada"'}), 400
+        
+        if not tts:
+            return jsonify({
+                'success': True,
+                'message': 'Text-to-speech not available on this server',
+                'text': text,
+                'language': language
+            })
         
         # Generate speech (in background, would save to file for web)
         # For now, we'll just confirm receipt

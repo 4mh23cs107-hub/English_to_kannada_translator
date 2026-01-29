@@ -1,19 +1,26 @@
 """
 English to Kannada Translator Module
-Handles text translation using Google Cloud Translation API
+Handles text translation using multiple translation engines
 """
 
 import os
 from typing import Optional
 from dotenv import load_dotenv
+import requests
+import json
 
-# Try to use Google Cloud, fallback to simple API
+# Try to use Google Cloud, fallback to deep-translator
 try:
     from google.cloud import translate_v2
     GOOGLE_CLOUD_AVAILABLE = True
 except ImportError:
     GOOGLE_CLOUD_AVAILABLE = False
-    import requests
+
+try:
+    from deep_translator import GoogleTranslator
+    DEEP_TRANSLATOR_AVAILABLE = True
+except ImportError:
+    DEEP_TRANSLATOR_AVAILABLE = False
 
 load_dotenv()
 
@@ -51,23 +58,42 @@ class EnglishKannadaTranslator:
             return ""
         
         try:
+            # Try Google Translate web API first
+            result = self._translate_with_google_api(text)
+            if result and result != text:
+                return result
+            
+            # Try Google Cloud API
             if self.client and GOOGLE_CLOUD_AVAILABLE:
                 result = self.client.translate_text(
                     text,
                     source_language=self.source_lang,
                     target_language=self.target_lang
                 )
-                return result['translatedText']
-            else:
-                # Fallback: Use MyMemory API (free, no authentication needed)
-                return self._translate_with_mymemory(text)
+                translated = result.get('translatedText', '')
+                if translated and translated != text:
+                    return translated
+            
+            # Try deep-translator (Google Translate backend)
+            if DEEP_TRANSLATOR_AVAILABLE:
+                result = self._translate_with_deep_translator(text)
+                if result and result != text:
+                    return result
+            
+            return None
         except Exception as e:
             print(f"Translation error: {e}")
+            # Try Google API as fallback
+            try:
+                return self._translate_with_google_api(text)
+            except:
+                pass
             return None
     
-    def _translate_with_mymemory(self, text: str) -> Optional[str]:
+    def _translate_with_google_api(self, text: str) -> Optional[str]:
         """
-        Fallback translation using MyMemory API
+        Translate using Google Translate API via requests
+        Uses the unofficial Google Translate API endpoint
         
         Args:
             text: Text to translate
@@ -76,22 +102,78 @@ class EnglishKannadaTranslator:
             Translated text or None
         """
         try:
-            url = "https://api.mymemory.translated.net/get"
-            params = {
-                'q': text,
-                'langpair': f'{self.source_lang}|{self.target_lang}'
-            }
-            response = requests.get(url, params=params, timeout=10)
-            data = response.json()
+            # Google Translate API endpoint
+            url = "https://translate.googleapis.com/translate_a/single"
             
-            if data['responseStatus'] == 200:
-                return data['responseData']['translatedText']
-            else:
-                print(f"MyMemory API error: {data.get('responseDetails', 'Unknown error')}")
-                return None
-        except Exception as e:
-            print(f"MyMemory translation error: {e}")
+            params = {
+                'client': 'gtx',
+                'sl': 'en',  # source language
+                'tl': 'kn',  # target language (Kannada)
+                'dt': 't',   # data type
+                'q': text
+            }
+            
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            }
+            
+            response = requests.get(url, params=params, headers=headers, timeout=10)
+            response.raise_for_status()
+            
+            # Parse the response
+            # Response format: [[[translation_text, original_text, ...], ...], ...]
+            result = response.json()
+            
+            if result and isinstance(result, list) and len(result) > 0:
+                # Get the translations list
+                if result[0] and isinstance(result[0], list) and len(result[0]) > 0:
+                    translations_list = result[0][0]
+                    
+                    if translations_list and isinstance(translations_list, list) and len(translations_list) > 0:
+                        translated_text = translations_list[0]
+                        
+                        if translated_text and isinstance(translated_text, str) and translated_text != text:
+                            return translated_text
+            
             return None
+            
+        except Exception as e:
+            print(f"Google Translate API error: {e}")
+            return None
+    
+    def _translate_with_deep_translator(self, text: str) -> Optional[str]:
+        """
+        Translate using deep-translator (Google Translate backend)
+        
+        Args:
+            text: Text to translate
+            
+        Returns:
+            Translated text or None
+        """
+        try:
+            translator = GoogleTranslator(source_language='en', target_language='kn')
+            result = translator.translate(text)
+            if result and result != text:
+                return result
+            return None
+        except Exception as e:
+            print(f"Deep translator error: {e}")
+            return None
+    
+    def _fallback_simple_translate(self, text: str) -> Optional[str]:
+        """
+        Ultra-simple fallback when all else fails
+        
+        Args:
+            text: Text to translate
+            
+        Returns:
+            Placeholder translation
+        """
+        if text:
+            return f"[Kannada translation: {text}]"
+        return None
     
     def translate_batch(self, texts: list) -> list:
         """

@@ -3,7 +3,13 @@ Speech Recognition Module
 Handles conversion of speech to text
 """
 
-import speech_recognition as sr
+try:
+    import speech_recognition as sr
+    SPEECH_RECOGNITION_AVAILABLE = True
+except (ImportError, ModuleNotFoundError):
+    SPEECH_RECOGNITION_AVAILABLE = False
+    sr = None
+
 from typing import Optional
 
 
@@ -12,12 +18,22 @@ class SpeechRecognizer:
     
     def __init__(self):
         """Initialize the speech recognizer"""
-        self.recognizer = sr.Recognizer()
-        self.microphone = sr.Microphone()
-        
-        # Adjust for ambient noise
-        with self.microphone as source:
-            self.recognizer.adjust_for_ambient_noise(source, duration=1)
+        if not SPEECH_RECOGNITION_AVAILABLE:
+            self.recognizer = None
+            self.microphone = None
+            return
+            
+        try:
+            self.recognizer = sr.Recognizer()
+            self.microphone = sr.Microphone()
+            
+            # Adjust for ambient noise
+            with self.microphone as source:
+                self.recognizer.adjust_for_ambient_noise(source, duration=1)
+        except Exception as e:
+            print(f"Warning: Speech recognizer initialization failed: {e}")
+            self.recognizer = None
+            self.microphone = None
     
     def recognize_from_microphone(self) -> Optional[str]:
         """
@@ -26,6 +42,9 @@ class SpeechRecognizer:
         Returns:
             Recognized text or None if recognition fails
         """
+        if not SPEECH_RECOGNITION_AVAILABLE or not self.recognizer:
+            return None
+            
         try:
             with self.microphone as source:
                 print("Listening... Please speak now.")

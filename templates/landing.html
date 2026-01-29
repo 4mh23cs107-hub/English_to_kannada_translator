@@ -3,23 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English to Kannada Translator | Fast & Accurate</title>
+    <title>English to Kannada Translator - Home</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%232196F3'>🌍</text></svg>" type="image/svg+xml">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">
-                <span class="logo-icon">🌍</span>
-                <span class="logo-text">Translator</span>
+            <div class="nav-logo">
+                <a href="/">🌍 Translator</a>
             </div>
             <ul class="nav-menu">
-                <li><a href="#features" class="nav-link">Features</a></li>
-                <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="/translator" class="nav-link nav-cta">Get Started</a></li>
+                <li class="nav-item">
+                    <a href="#features" class="nav-link">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#how-it-works" class="nav-link">How It Works</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/app" class="nav-link nav-link-active">Get Started</a>
+                </li>
             </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
     </nav>
 
@@ -27,85 +40,82 @@
     <section class="hero">
         <div class="hero-content">
             <h1 class="hero-title">
-                English to Kannada
-                <span class="highlight">Translator</span>
+                Break Language Barriers
+                <span class="gradient-text">Instantly</span>
             </h1>
             <p class="hero-subtitle">
-                Instantly translate English text to Kannada with AI-powered accuracy
+                Translate English to Kannada with advanced AI-powered translation.
+                Fast, accurate, and completely free.
             </p>
             <div class="hero-buttons">
-                <a href="/translator" class="btn btn-primary btn-large">Start Translating Now</a>
-                <a href="#features" class="btn btn-secondary btn-large">Learn More</a>
+                <a href="/app" class="btn btn-primary btn-lg">
+                    <span class="icon">🚀</span> Start Translating Now
+                </a>
+                <a href="#features" class="btn btn-secondary btn-lg">
+                    <span class="icon">📚</span> Learn More
+                </a>
             </div>
-            <div class="hero-features-quick">
-                <div class="quick-feature">
-                    <span class="icon">⚡</span>
-                    <span>Instant Translation</span>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Translations</div>
                 </div>
-                <div class="quick-feature">
-                    <span class="icon">🎤</span>
-                    <span>Speech Support</span>
+                <div class="stat">
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">Accuracy</div>
                 </div>
-                <div class="quick-feature">
-                    <span class="icon">🔒</span>
-                    <span>Privacy First</span>
+                <div class="stat">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Available</div>
                 </div>
             </div>
         </div>
-        <div class="hero-illustration">
-            <div class="floating-card card-en">EN</div>
-            <div class="floating-card card-arrow">⬇️</div>
-            <div class="floating-card card-kn">ಕನ್ನಡ</div>
+        <div class="hero-image">
+            <div class="floating-box box-1">EN</div>
+            <div class="floating-box box-2">
+                <span class="arrow">→</span>
+            </div>
+            <div class="floating-box box-3">ಕನ್ನಡ</div>
         </div>
     </section>
 
     <!-- Features Section -->
     <section id="features" class="features">
-        <div class="section-container">
-            <h2 class="section-title">Powerful Features</h2>
-            <p class="section-subtitle">Everything you need for seamless translation</p>
-            
+        <div class="container">
+            <div class="section-header">
+                <h2>Powerful Features</h2>
+                <p>Everything you need for seamless translation</p>
+            </div>
             <div class="features-grid">
-                <!-- Feature 1 -->
                 <div class="feature-card">
-                    <div class="feature-icon-box">✨</div>
-                    <h3>Accurate Translations</h3>
-                    <p>Advanced translation engine powered by machine learning for contextually accurate results</p>
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Get instant translations powered by advanced neural networks</p>
                 </div>
-
-                <!-- Feature 2 -->
                 <div class="feature-card">
-                    <div class="feature-icon-box">🎤</div>
-                    <h3>Voice Input & Output</h3>
-                    <p>Speak English and hear Kannada translation with natural-sounding speech synthesis</p>
+                    <div class="feature-icon">🎯</div>
+                    <h3>High Accuracy</h3>
+                    <p>Contextually aware translations that maintain meaning and nuance</p>
                 </div>
-
-                <!-- Feature 3 -->
                 <div class="feature-card">
-                    <div class="feature-icon-box">⚡</div>
-                    <h3>Real-time Translation</h3>
-                    <p>Get instant translations as you type, no delays or waiting required</p>
+                    <div class="feature-icon">🎤</div>
+                    <h3>Text-to-Speech</h3>
+                    <p>Listen to translations with natural pronunciation</p>
                 </div>
-
-                <!-- Feature 4 -->
                 <div class="feature-card">
-                    <div class="feature-icon-box">📋</div>
-                    <h3>Copy & Share</h3>
-                    <p>Easily copy translations and share them across your favorite apps and platforms</p>
+                    <div class="feature-icon">🔄</div>
+                    <h3>Real-time</h3>
+                    <p>See translations update as you type</p>
                 </div>
-
-                <!-- Feature 5 -->
                 <div class="feature-card">
-                    <div class="feature-icon-box">🔒</div>
-                    <h3>100% Private</h3>
-                    <p>Your translations are processed locally. We never store or share your data</p>
-                </div>
-
-                <!-- Feature 6 -->
-                <div class="feature-card">
-                    <div class="feature-icon-box">📱</div>
+                    <div class="feature-icon">📱</div>
                     <h3>Responsive Design</h3>
-                    <p>Works seamlessly on desktop, tablet, and mobile devices</p>
+                    <p>Works perfectly on desktop, tablet, and mobile devices</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Secure & Private</h3>
+                    <p>Your data is never stored or shared with third parties</p>
                 </div>
             </div>
         </div>
@@ -113,70 +123,61 @@
 
     <!-- How It Works Section -->
     <section id="how-it-works" class="how-it-works">
-        <div class="section-container">
-            <h2 class="section-title">How It Works</h2>
-            <p class="section-subtitle">Simple 3-step translation process</p>
-            
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Simple, intuitive, and powerful</p>
+            </div>
             <div class="steps-grid">
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3>Enter Text</h3>
-                    <p>Type or paste your English text, or use voice input to speak your content</p>
+                    <p>Type or paste English text that you want to translate</p>
                 </div>
-                <div class="step-arrow">→</div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>Click Translate</h3>
-                    <p>Hit the translate button and our AI instantly converts your text to Kannada</p>
+                    <h3>Auto Translate</h3>
+                    <p>Translations appear automatically as you type</p>
                 </div>
-                <div class="step-arrow">→</div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>Use Result</h3>
-                    <p>Copy the translation, listen to it spoken, or continue translating more text</p>
+                    <h3>Copy & Share</h3>
+                    <p>Copy the translation or listen with text-to-speech</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Use Anywhere</h3>
+                    <p>Use translated content in your documents or conversations</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="section-container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">About This Tool</h2>
-                    <p>
-                        This English to Kannada translator is designed to bridge language barriers and make communication 
-                        more accessible. Built with modern web technology and powered by advanced translation algorithms, 
-                        it provides accurate, fast, and private translation services.
-                    </p>
-                    <p>
-                        Whether you're learning Kannada, communicating with Kannada speakers, or working on multilingual 
-                        projects, our translator makes it easy and efficient.
-                    </p>
-                    <ul class="about-list">
-                        <li>✓ Free to use, no registration required</li>
-                        <li>✓ No ads or trackers</li>
-                        <li>✓ Works offline with proper setup</li>
-                        <li>✓ Continuously improved with feedback</li>
+    <!-- Showcase Section -->
+    <section class="showcase">
+        <div class="container">
+            <div class="showcase-content">
+                <div class="showcase-text">
+                    <h2>Perfect Translation Quality</h2>
+                    <p>Our translator uses state-of-the-art machine learning models trained on millions of parallel texts to provide accurate, contextually appropriate translations.</p>
+                    <ul class="showcase-list">
+                        <li>✓ Supports various dialects and formal/informal speech</li>
+                        <li>✓ Preserves original meaning and tone</li>
+                        <li>✓ Handles idiomatic expressions effectively</li>
+                        <li>✓ Continuously learning and improving</li>
                     </ul>
                 </div>
-                <div class="about-stats">
-                    <div class="stat-card">
-                        <div class="stat-number">1000+</div>
-                        <div class="stat-label">Active Users</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">100K+</div>
-                        <div class="stat-label">Translations</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">99.9%</div>
-                        <div class="stat-label">Uptime</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">Available</div>
+                <div class="showcase-demo">
+                    <div class="demo-card">
+                        <div class="demo-input">
+                            <div class="demo-label">English</div>
+                            <p>"Hello, how are you today?"</p>
+                        </div>
+                        <div class="demo-arrow">→</div>
+                        <div class="demo-output">
+                            <div class="demo-label">Kannada</div>
+                            <p>"ನಮಸ್ಕಾರ, ನೀವು ಇಂದು ಹೇಗಿದ್ದೀರಿ?"</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -185,25 +186,52 @@
 
     <!-- CTA Section -->
     <section class="cta">
-        <div class="section-container">
-            <h2>Ready to Start Translating?</h2>
-            <p>Experience fast, accurate, and private English to Kannada translation</p>
-            <a href="/translator" class="btn btn-primary btn-large">Launch Translator</a>
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Translate?</h2>
+                <p>Start translating English to Kannada for free, no sign-up required!</p>
+                <a href="/app" class="btn btn-primary btn-lg btn-white">
+                    <span class="icon">🚀</span> Launch Translator
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="section-container">
-            <p>&copy; 2026 English to Kannada Translator. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="#features">Features</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#about">About</a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>English to Kannada Translator</h4>
+                    <p>Breaking language barriers with technology</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/app">Translator</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Documentation</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 English to Kannada Translator. All rights reserved.</p>
+                <p>Built with ❤️ using Python, Flask, and Modern Web Technologies</p>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="{{ url_for('static', filename='js/landing.js') }}"></script>
 </body>
 </html>

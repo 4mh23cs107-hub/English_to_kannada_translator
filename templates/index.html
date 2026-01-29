@@ -3,15 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English to Kannada Translator</title>
+    <title>Translator App - English to Kannada</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%232196F3'>🌍</text></svg>" type="image/svg+xml">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="container">
+        <!-- Navigation -->
+        <nav class="app-navbar">
+            <div class="nav-left">
+                <a href="/" class="nav-back">← Back to Home</a>
+            </div>
+            <div class="nav-center">
+                <h1 class="app-title">🌍 English to Kannada Translator</h1>
+            </div>
+            <div class="nav-right"></div>
+        </nav>
+
         <!-- Header -->
         <header class="header">
             <div class="header-content">
-                <h1>🌍 English to Kannada Translator</h1>
+                <h1>English to Kannada Translator</h1>
                 <p class="subtitle">Translate text and speech instantly</p>
             </div>
         </header>
