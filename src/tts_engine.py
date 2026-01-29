@@ -13,13 +13,29 @@ class TTSEngine:
     
     def __init__(self):
         """Initialize the TTS engine"""
-        self.engine = pyttsx3.init()
-        self.engine.setProperty('rate', 150)  # Speed of speech
-        self.engine.setProperty('volume', 0.9)  # Volume
+        self.engine = None
+        self.voices = []
+        self.is_headless = os.environ.get('HEADLESS', False) or not self._has_audio_hardware()
         
-        # List available voices
-        self.voices = self.engine.getProperty('voices')
-        self.set_voice_language('english')
+        try:
+            self.engine = pyttsx3.init()
+            self.engine.setProperty('rate', 150)  # Speed of speech
+            self.engine.setProperty('volume', 0.9)  # Volume
+            
+            # List available voices
+            self.voices = self.engine.getProperty('voices')
+            self.set_voice_language('english')
+        except Exception as e:
+            print(f"Warning: TTS Engine initialization failed: {e}")
+            self.is_headless = True
+    
+    def _has_audio_hardware(self):
+        """Check if audio hardware is available"""
+        try:
+            import sounddevice
+            return True
+        except:
+            return False
     
     def set_voice_language(self, language: str = 'english'):
         """
@@ -28,23 +44,25 @@ class TTSEngine:
         Args:
             language: 'english' or 'kannada'
         """
-        if len(self.voices) > 0:
-            if language.lower() == 'english':
-                # Try to find English voice
-                for voice in self.voices:
-                    if 'english' in voice.name.lower():
-                        self.engine.setProperty('voice', voice.id)
-                        return
-                # Default to first voice
-                self.engine.setProperty('voice', self.voices[0].id)
-            elif language.lower() == 'kannada':
-                # Try to find Indian language voice
-                for voice in self.voices:
-                    if 'indian' in voice.name.lower() or 'hindi' in voice.name.lower():
-                        self.engine.setProperty('voice', voice.id)
-                        return
-                # Fallback to any available voice
-                self.engine.setProperty('voice', self.voices[0].id)
+        if not self.engine or not self.voices:
+            return
+            
+        if language.lower() == 'english':
+            # Try to find English voice
+            for voice in self.voices:
+                if 'english' in voice.name.lower():
+                    self.engine.setProperty('voice', voice.id)
+                    return
+            # Default to first voice
+            self.engine.setProperty('voice', self.voices[0].id)
+        elif language.lower() == 'kannada':
+            # Try to find Indian language voice
+            for voice in self.voices:
+                if 'indian' in voice.name.lower() or 'hindi' in voice.name.lower():
+                    self.engine.setProperty('voice', voice.id)
+                    return
+            # Fallback to any available voice
+            self.engine.setProperty('voice', self.voices[0].id)
     
     def speak(self, text: str, language: str = 'english'):
         """
@@ -57,7 +75,14 @@ class TTSEngine:
         if not text or not text.strip():
             return
         
+        # Skip TTS on headless environments
+        if self.is_headless:
+            return
+        
         try:
+            if not self.engine:
+                return
+                
             self.set_voice_language(language)
             self.engine.say(text)
             self.engine.runAndWait()
