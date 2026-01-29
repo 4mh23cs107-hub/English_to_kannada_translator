@@ -1,4 +1,4 @@
-# English to Kannada Translator
+live server https://english-to-kannada-translator-12.onrender.com# English to Kannada Translator
 
 A comprehensive Python application that translates English text and speech to Kannada with text-to-speech capabilities. Now available as both **Desktop GUI** and **Full-Stack Web Application**.
 
