@@ -22,9 +22,13 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 translator = EnglishKannadaTranslator()
 tts = TTSEngine()
 
-# Configure TTS to not use GUI
-tts.engine.setProperty('rate', 150)
-tts.engine.setProperty('volume', 0.9)
+# Configure TTS to not use GUI (only if engine initialized successfully)
+if tts and tts.engine:
+    try:
+        tts.engine.setProperty('rate', 150)
+        tts.engine.setProperty('volume', 0.9)
+    except Exception as e:
+        print(f"Warning: Could not configure TTS properties: {e}")
 
 
 @app.route('/')
@@ -189,6 +193,7 @@ def internal_error(error):
 
 
 if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
     print("Starting English to Kannada Translator Web Server...")
-    print("Open your browser and go to: http://localhost:5000")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    print(f"Open your browser and go to: http://localhost:{port}")
+    app.run(debug=False, host='0.0.0.0', port=port)
