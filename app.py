@@ -28,8 +28,14 @@ tts.engine.setProperty('volume', 0.9)
 
 
 @app.route('/')
+def landing():
+    """Render the landing page"""
+    return render_template('landing.html')
+
+
+@app.route('/translator')
 def index():
-    """Render the main page"""
+    """Render the translator page"""
     return render_template('index.html')
 
 
